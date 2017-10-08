@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from "../pages/login/login";
+import { QrcodePage } from "../pages/qrcode/qrcode";
+import { AuthProvider } from "../providers/auth/auth";
 
 @Component({
   templateUrl: 'app.html'
@@ -12,33 +14,55 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  private rootPage: any;
+  public pages: Array<{title: string, component: any}>;
+  public profile: Object;
 
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen, 
+              private events: Events,
+              private authProvider: AuthProvider) {
     this.initializeApp();
+    this.listenToLogin();
 
-    // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Home', component: TabsPage }
     ];
 
   }
 
-  initializeApp() {
+  public initializeApp(): void {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      let token = localStorage.getItem("token");
+      if (token) {
+        this.rootPage = TabsPage;
+        let profile = localStorage.getItem("profile");
+        if (profile) {
+          this.profile = JSON.parse(profile);
+        }
+      } else {
+        this.rootPage = LoginPage;
+      }
+
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+  public openPage(page): void {
     this.nav.setRoot(page.component);
+  }
+
+  private listenToLogin(): void {
+    this.events.subscribe("user:login", (profile) => {
+      this.profile = profile;
+    })
+  }
+
+  private logout(): void {
+    this.authProvider.logout();
+    this.nav.setRoot(LoginPage);
   }
 }

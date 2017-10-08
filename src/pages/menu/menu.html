@@ -1,0 +1,23 @@
+<ion-header>
+  
+  <ion-navbar color="primary">
+    <ion-title>เมนูอาหาร</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-searchbar (ionInput)="getItem($event)"></ion-searchbar>
+  <ion-list>
+    <button ion-item *ngFor="let m of menu" (click)="goDetail(m)">
+      {{ m.name_menu }}
+    </button>
+  </ion-list>
+
+
+</ion-content>

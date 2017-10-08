@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>QR CODE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <button ion-button full block (click)="scan()">SCAN</button>
+  <p>text: {{ text }}</p>
+  <p>format: {{ format }}</p>
+  <p>cancelled: {{ cancelled }}</p>
+
+</ion-content>

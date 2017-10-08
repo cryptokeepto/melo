@@ -1,0 +1,25 @@
+<ion-header>
+  
+  <ion-navbar color="primary">
+    <ion-title>{{ nameMenu }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <button ion-item *ngFor="let md of menuDetail" (click)="goDetail(md)">
+      <ion-thumbnail item-start>
+        <img src="http://sittikiat.streetfood.in.th/images/{{ md.img_restaurant }}">
+      </ion-thumbnail>
+      <h2>{{ md.name_restaurant }}</h2>
+      <p><ion-icon name="star"></ion-icon> {{ md.rate_restaurant }}</p>
+    </button>
+  </ion-list>
+
+</ion-content>
+  

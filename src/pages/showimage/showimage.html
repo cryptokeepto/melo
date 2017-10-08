@@ -1,0 +1,23 @@
+<ion-header>
+  
+  <ion-toolbar color="primary">
+    <ion-title>showimage</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only navPop>
+        <ion-label>Back</ion-label>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-card>
+    <img [src]="imageData">
+  </ion-card>
+</ion-content>
+
+<ion-footer padding>
+    <button ion-button (click)="upload()" full color="secondary">Upload</button>
+</ion-footer>

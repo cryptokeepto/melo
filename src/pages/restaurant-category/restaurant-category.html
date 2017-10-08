@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>ร้านอาหาร</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-searchbar (ionInput)="getItem($event)"></ion-searchbar>
+  <ion-list [virtualScroll]="restaurantCategory">
+    <button ion-item *virtualItem="let rc" (click)="goRestaurant(rc)">
+      {{ rc.name_restaurant_category }}
+    </button>
+  </ion-list>
+</ion-content>

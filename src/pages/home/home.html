@@ -1,18 +1,29 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content class="card-background-page">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-card (click)="goRestaurantCategory()">
+    <img class="img-blur" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Street_food_Yasothon.jpg/1200px-Street_food_Yasothon.jpg"/>
+    <div class="card-title">ร้านอาหาร</div>
+  </ion-card>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-card (click)="goMenu()">
+    <img class="img-blur" src="http://www.moneychannel.co.th/assets/upload/__cms_news_list/b89a063f4f6796d0e6909e7c3ab925f1.jpg"/>
+    <div class="card-title">เมนูอาหาร</div>
+  </ion-card>
+
+  
+
+
+
 </ion-content>
