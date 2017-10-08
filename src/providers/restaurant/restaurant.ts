@@ -18,6 +18,12 @@ export class RestaurantProvider {
 
   constructor(public http: Http) {}
 
+  public getRestaurantAll() {
+    return this.http.get(`${this.url}/restaurant`)
+    .map((res: Response) => <Restaurant[]> res.json())
+    .catch(this.handleError);
+  }
+
   public getRestaurant(id: number) {
     return this.http.get(`${this.url}/restaurant/${id}`)
     .map((res: Response) => <Restaurant[]> res.json())

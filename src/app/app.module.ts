@@ -14,6 +14,7 @@ import { LoginPage } from "../pages/login/login";
 import { TabsPage } from "../pages/tabs/tabs";
 import { SignupPage } from "../pages/signup/signup";
 import { MapPage } from "../pages/map/map";
+import { MapsPage } from "../pages/maps/maps";
 import { QrcodePage } from "../pages/qrcode/qrcode";
 import { ShowimagePage } from "../pages/showimage/showimage";
 
@@ -44,7 +45,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     SignupPage,
     MapPage,
     QrcodePage,
-    ShowimagePage
+    ShowimagePage,
+    MapsPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     SignupPage,
     MapPage,
     QrcodePage,
-    ShowimagePage
+    ShowimagePage,
+    MapsPage
   ],
   providers: [
     StatusBar,
