@@ -14,7 +14,8 @@ import { AuthProvider } from "../providers/auth/auth";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  private rootPage: any;
+  // private rootPage: any;
+  private rootPage: any = TabsPage;
   public pages: Array<{title: string, component: any}>;
   public profile: Object;
 
@@ -37,16 +38,16 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      let token = localStorage.getItem("token");
-      if (token) {
-        this.rootPage = TabsPage;
-        let profile = localStorage.getItem("profile");
-        if (profile) {
-          this.profile = JSON.parse(profile);
-        }
-      } else {
-        this.rootPage = LoginPage;
-      }
+      // let token = localStorage.getItem("token");
+      // if (token) {
+      //   this.rootPage = TabsPage;
+      //   let profile = localStorage.getItem("profile");
+      //   if (profile) {
+      //     this.profile = JSON.parse(profile);
+      //   }
+      // } else {
+      //   this.rootPage = LoginPage;
+      // }
 
     });
   }

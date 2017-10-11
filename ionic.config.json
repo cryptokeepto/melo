@@ -1,6 +1,6 @@
 {
   "name": "melo",
-  "app_id": "",
+  "app_id": "2c9dfe0a",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

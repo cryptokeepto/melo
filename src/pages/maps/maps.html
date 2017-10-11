@@ -10,7 +10,11 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
   <div id="map"></div>
-
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="getMyLocation()">
+      <ion-icon name="locate"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

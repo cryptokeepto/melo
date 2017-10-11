@@ -18,6 +18,7 @@ export class MapPage {
   rate: number;
   image: any;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private googleMaps: GoogleMaps) {
     this.name = this.navParams.get("name");
     this.rate = this.navParams.get("rate");
@@ -30,6 +31,8 @@ export class MapPage {
     }).catch((err) => {
       if (err) throw err
     })
+
+    console.log(this.image);
   }
 
   private ionViewWillEnter(): void {
@@ -55,6 +58,7 @@ export class MapPage {
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       let markerOption: MarkerOptions = {
         title: this.name,
+        snippet: "Star: " + this.rate,
         icon: "red",
         animation: "DROP",
         position: {
@@ -62,7 +66,9 @@ export class MapPage {
           lng: this.lng
         }
       }
-      this.map.addMarker(markerOption);
+      this.map.addMarker(markerOption).then((marker: Marker) => {
+        marker.showInfoWindow();
+      });
     })
   }
 
@@ -70,9 +76,9 @@ export class MapPage {
     this.map.getMyLocation().then((location) => {
       let position: CameraPosition<any> = {
         target: location.latLng,
-        zoom: 10
+        zoom: 12
       }
-      this.map.moveCamera(position);
+      this.map.animateCamera(position);
       let option: MarkerOptions = {
         position: location.latLng,
         title: "I' m Here",
