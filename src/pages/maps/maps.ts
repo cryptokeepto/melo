@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, Events } from 'ionic-angular';
 import { GoogleMap, GoogleMaps, GoogleMapOptions, CameraPosition, Marker, MarkerOptions, GoogleMapsEvent, Circle, CircleOptions } from "@ionic-native/google-maps";
 import { RestaurantProvider } from "../../providers/restaurant/restaurant";
 import { Restaurant } from "../../models/restaurant";
@@ -19,6 +19,7 @@ export class MapsPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    private events: Events,
     private googleMaps: GoogleMaps,
     private restaurantProvider: RestaurantProvider,
     private platform: Platform) {
@@ -47,8 +48,9 @@ export class MapsPage {
   }
 
   private ionViewWillEnter(): void {
-    this.initMap();
     this.showMap();
+    this.initMap();
+    this.markerRestaurant();
   }
 
   private ionViewWillLeave(): void {
@@ -69,20 +71,25 @@ export class MapsPage {
     }
     this.map = this.googleMaps.create(mapElement, mapOptions);
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-      this.restaurantMap.forEach((value) => {
-        let markerOption: MarkerOptions = {
-          position: {
-            lat: value.lat,
-            lng: value.lng
-          },
-          icon: "red",
-          title: value.name_restaurant,
-          snippet: "Star: " + value.rate_restaurant
-        }
-        this.map.addMarker(markerOption).then((marker: Marker) => {
-          marker.on(GoogleMapsEvent.INFO_CLICK).subscribe(() => {
-            this.navCtrl.push(RestaurantDetailPage, value)
-          })
+      this.markerRestaurant();
+      console.log("Marker success");
+    })
+  }
+
+  private markerRestaurant(): void {
+    this.restaurantMap.forEach((value) => {
+      let markerOption: MarkerOptions = {
+        position: {
+          lat: value.lat,
+          lng: value.lng
+        },
+        icon: "red",
+        title: value.name_restaurant,
+        snippet: "Star: " + value.rate_restaurant
+      }
+      this.map.addMarker(markerOption).then((marker: Marker) => {
+        marker.on(GoogleMapsEvent.INFO_CLICK).subscribe(() => {
+          this.navCtrl.setRoot(RestaurantDetailPage, value)
         })
       })
     })

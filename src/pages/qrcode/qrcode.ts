@@ -13,6 +13,7 @@ export class QrcodePage {
   text: any;
   format: any;
   cancelled: any;
+  time: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner :BarcodeScanner) {
   }

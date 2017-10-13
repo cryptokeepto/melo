@@ -31,8 +31,6 @@ export class MapPage {
     }).catch((err) => {
       if (err) throw err
     })
-
-    console.log(this.image);
   }
 
   private ionViewWillEnter(): void {
@@ -82,7 +80,8 @@ export class MapPage {
       let option: MarkerOptions = {
         position: location.latLng,
         title: "I' m Here",
-        animation: "BOUNCE"
+        animation: "BOUNCE",
+        icon: "BLUE"
       }
       this.map.addMarker(option).then((marker: Marker) => {
         marker.showInfoWindow();
