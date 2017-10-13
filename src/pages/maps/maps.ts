@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { GoogleMap, GoogleMaps, GoogleMapOptions, CameraPosition, Marker, MarkerOptions, GoogleMapsEvent, Circle, CircleOptions } from "@ionic-native/google-maps";
 import { RestaurantProvider } from "../../providers/restaurant/restaurant";
 import { Restaurant } from "../../models/restaurant";
+import { RestaurantDetailPage } from "../restaurant-detail/restaurant-detail";
 
 @IonicPage()
 @Component({
@@ -15,10 +16,6 @@ export class MapsPage {
   restaurantMap: Restaurant[];
   latlng: any;
 
-  //---------------------
-  name: string;
-  lat: number;
-  lng: number;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -50,6 +47,7 @@ export class MapsPage {
   }
 
   private ionViewWillEnter(): void {
+    this.initMap();
     this.showMap();
   }
 
@@ -70,6 +68,24 @@ export class MapsPage {
       }
     }
     this.map = this.googleMaps.create(mapElement, mapOptions);
+    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+      this.restaurantMap.forEach((value) => {
+        let markerOption: MarkerOptions = {
+          position: {
+            lat: value.lat,
+            lng: value.lng
+          },
+          icon: "red",
+          title: value.name_restaurant,
+          snippet: "Star: " + value.rate_restaurant
+        }
+        this.map.addMarker(markerOption).then((marker: Marker) => {
+          marker.on(GoogleMapsEvent.INFO_CLICK).subscribe(() => {
+            this.navCtrl.push(RestaurantDetailPage, value)
+          })
+        })
+      })
+    })
   }
 
   private getMyLocation(): void {
@@ -86,19 +102,12 @@ export class MapsPage {
         let option: MarkerOptions = {
           position: this.latlng,
           title: "I'm Here",
-          animation: "DROP",
-          icon: "red"
+          animation: "BOUNCE",
+          icon: "BLUE"
         }
         this.map.addMarker(option).then((marker: Marker) => {
           marker.showInfoWindow();
         });
-        // circle
-        let optionCircle: CircleOptions = {
-          center: location.latLng,
-          radius: 300,
-          strokeWidth: 5
-        }
-        this.map.addCircle(optionCircle);
       });
     });
 
