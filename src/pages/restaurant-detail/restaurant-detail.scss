@@ -4,4 +4,17 @@ page-restaurant-detail {
         height: 100px;
         width: 200px;
     }
+    ul {
+        padding: 0px;
+        
+        &.rating li {
+            padding: 0px 0px 0px 0px !important;
+            background: none;
+            color: #ffb400;
+        
+            ion-icon {
+                font-size: 25px;
+            }
+        }
+    }
 }

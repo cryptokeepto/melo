@@ -30,6 +30,7 @@ import { SocialSharing } from "@ionic-native/social-sharing";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { Camera } from "@ionic-native/camera";
 import { GoogleMaps } from "@ionic-native/google-maps";
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicImageViewerModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

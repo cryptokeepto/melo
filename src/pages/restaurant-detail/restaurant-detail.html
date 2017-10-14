@@ -1,5 +1,5 @@
 <ion-header>
-  
+
   <ion-navbar color="primary">
     <ion-title>{{ nameRestaurantDetail }}</ion-title>
     <ion-buttons end>
@@ -21,11 +21,13 @@
     <ion-list>
       <button ion-item>
         <p>
-          <ion-icon name="star"></ion-icon> {{ rateRestaurantDetail }}</p>
+          <rating [(ngModel)]="rateRestaurantDetail" max="5" readOnly="true" style="margin:0%; padding: 0%;"></rating>
+        </p>
       </button>
       <button ion-item>
         <p>
-          <ion-icon name="map"></ion-icon> {{ addressRestaurantDetail }}</p>
+          <ion-icon name="map"></ion-icon> {{ addressRestaurantDetail }}
+        </p>
       </button>
     </ion-list>
 
@@ -41,8 +43,8 @@
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button clear icon-only full color="dark">
-          <ion-icon name="text"></ion-icon>
+        <button ion-button clear icon-only full color="dark" (click)="goMap()">
+          <ion-icon name="map"></ion-icon>
         </button>
       </ion-col>
     </ion-row>
@@ -58,21 +60,26 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-icon name="text"></ion-icon> Comments
+      <b>Comment</b>
     </ion-card-header>
     <ion-card-content>
-      {{ commentRestaurantDetail }}
+      <form (ngSubmit)="postComment(comment.value)">
+        <ion-item>
+          <ion-input type="text" placeholder="ร้านอาหารนี้เป็นยังไงบ้าง..." #comment></ion-input>
+          <button small type="submit" ion-button item-end>Post</button>
+        </ion-item>
+      </form>
     </ion-card-content>
+
   </ion-card>
 
-  <ion-fab right bottom>
-    <button ion-fab (click)="goMap()" color="secondary">
-      <ion-icon name="map"></ion-icon>
-    </button>
-  </ion-fab>
+  <ion-list>
 
-
-
-
+    <ion-item *ngFor="let c of commentRes; let i = index">
+      <h2>ความคิดเห็นที่ {{ i + 1 }} <ion-icon name="text"></ion-icon></h2>
+      <p>{{ c.detail_comment }}</p>
+    </ion-item>  
+    
+  </ion-list>
 
 </ion-content>

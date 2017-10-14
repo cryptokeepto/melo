@@ -17,7 +17,9 @@
         <img src="http://sittikiat.streetfood.in.th/images/{{ md.img_restaurant }}">
       </ion-thumbnail>
       <h2>{{ md.name_restaurant }}</h2>
-      <p><ion-icon name="star"></ion-icon> {{ md.rate_restaurant }}</p>
+      <ion-badge item-right>
+          <ion-icon name="star"></ion-icon> {{ md.rate_restaurant }}
+      </ion-badge>
     </button>
   </ion-list>
 
