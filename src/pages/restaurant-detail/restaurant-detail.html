@@ -16,7 +16,7 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card>
+  <ion-card style="width: 100%; margin: 0px 0px 10px 0px">
     <img src="http://sittikiat.streetfood.in.th/images/{{ imgRestaurantDetail }}" />
     <ion-list>
       <button ion-item>
@@ -24,33 +24,15 @@
           <rating [(ngModel)]="rateRestaurantDetail" max="5" readOnly="true" style="margin:0%; padding: 0%;"></rating>
         </p>
       </button>
-      <button ion-item>
+      <button ion-item (click)="goMap()">
         <p>
           <ion-icon name="map"></ion-icon> {{ addressRestaurantDetail }}
         </p>
       </button>
     </ion-list>
-
-    <ion-row>
-      <ion-col>
-        <button ion-button clear icon-only full color="dark" (click)="takeCamera()">
-          <ion-icon name="camera"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button clear icon-only full color="dark" (click)="openAlbum()">
-          <ion-icon name="images"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button clear icon-only full color="dark" (click)="goMap()">
-          <ion-icon name="map"></ion-icon>
-        </button>
-      </ion-col>
-    </ion-row>
   </ion-card>
 
-  <ion-card>
+  <ion-card style="width: 100%; margin: 0px 0px 10px 0px">
     <ion-slides class="image-slider" slidesPerView="2.5">
       <ion-slide *ngFor="let image of imagesRestaurantDetail">
         <img class="thumb-img" src="http://sittikiat.streetfood.in.th/images/{{ image.name_restaurant_image }}" imageViewer>
@@ -58,7 +40,7 @@
     </ion-slides>
   </ion-card>
 
-  <ion-card>
+  <ion-card style="width: 100%; margin: 0px 0px 10px 0px">
     <ion-card-header>
       <b>Comment</b>
     </ion-card-header>
@@ -70,16 +52,31 @@
         </ion-item>
       </form>
     </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <button ion-button clear icon-only full color="dark" (click)="takeCamera()">
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button clear icon-only full color="dark" (click)="openAlbum()">
+          <ion-icon name="images"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
 
   </ion-card>
 
-  <ion-list>
-
-    <ion-item *ngFor="let c of commentRes; let i = index">
-      <h2>ความคิดเห็นที่ {{ i + 1 }} <ion-icon name="text"></ion-icon></h2>
-      <p>{{ c.detail_comment }}</p>
-    </ion-item>  
-    
-  </ion-list>
+  <ion-card style="width: 100%; margin: 10px 0px">
+    <div *ngFor="let c of commentRes; let i = index">
+      <ion-card-header>
+        <b>ความคิดเห็นที่ {{ i + 1 }}</b>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ c.detail_comment }}</p>
+        <hr>
+      </ion-card-content>
+    </div>
+  </ion-card>
 
 </ion-content>
